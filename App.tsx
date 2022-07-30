@@ -1,14 +1,17 @@
 /* eslint-disable react/react-in-jsx-scope */
-import {StyleSheet, Text, View} from 'react-native';
-import Colors from './src/theme/Colors';
-import Fonts from './src/theme/Fonts';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import {StyleSheet, View} from 'react-native';
+import PostUploadScreen from './src/screens/PostUploadScreen';
+// import EditProfile from './src/screens/EditProfile';
+// import EditProfileScreen from './src/screens/EditProfileScreen';
+// import ProfileScreen from './src/screens/ProfileScreen';
 
 const App = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Hello World</Text>
-      <AntDesign name="stepforward" size={25} color={Colors.primary} />
+      <PostUploadScreen />
+      {/* <EditProfile /> */}
+      {/* <EditProfileScreen /> */}
+      {/* <ProfileScreen /> */}
     </View>
   );
 };
@@ -16,12 +19,6 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: Colors.primary,
-    fontSize: Fonts.size.lg,
   },
 });
 
