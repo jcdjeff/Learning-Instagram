@@ -4,8 +4,12 @@ import user from '../assets/data/user.json';
 import Fonts from '../theme/Fonts';
 import Colors from '../theme/Colors';
 import Button from '../components/Button';
+import {useNavigation} from '@react-navigation/native';
+import {ProfileNavigationProp} from '../navigation/types';
 
 const ProfileHeader = () => {
+  const navigation = useNavigation<ProfileNavigationProp>();
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.profile}>
@@ -31,9 +35,10 @@ const ProfileHeader = () => {
       <View style={styles.buttonsContainer}>
         <Button
           text="Edit Profile"
-          onPress={() => console.warn('Edit Profile')}
+          onPress={() => navigation.navigate('Edit Profile')}
         />
-        <Button text="Message" onPress={() => console.warn('Sending a Msg')} />
+        {/* RTRN TO PRV SCREEN - USE POP TO TOP TO RETURN TO 1ST SCREEN */}
+        <Button text="Go Back" onPress={navigation.goBack} />
       </View>
 
       {/* GRID VIEW POST */}

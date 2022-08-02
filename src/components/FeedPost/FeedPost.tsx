@@ -1,4 +1,4 @@
-/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {Text, Image, View, Pressable} from 'react-native';
 import Colors from '../../theme/Colors';
@@ -12,6 +12,8 @@ import {IPost} from '../../types/models';
 import DoublePressable from '../DoublePressable';
 import Carousel from '../Carousel';
 import VideoPlayer from '../VideoPlayer';
+import {useNavigation} from '@react-navigation/native';
+import {FeedNavigationProp} from '../../navigation/types';
 
 interface IFeedPost {
   post: IPost;
@@ -21,6 +23,17 @@ interface IFeedPost {
 const FeedPost = ({post, isVisible}: IFeedPost) => {
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const navigation = useNavigation<FeedNavigationProp>();
+
+  // NAVIGATION.PUSH CAN BE USED TO JUMP TO A CMPLTLY DIF SCREEN
+  const navigateToUser = () => {
+    // NVR send full objects thru props, only some identifiers
+    navigation.navigate('UserProfile', {userId: post.user.id});
+  };
+
+  const navigateToComments = () => {
+    navigation.navigate('Comments', {postId: post.id});
+  };
 
   const toggleDescriptionExpanded = () => {
     setIsDescriptionExpanded(v => !v);
@@ -62,7 +75,9 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
           }}
           style={styles.userAvatar}
         />
-        <Text style={styles.userName}>{post.user.username}</Text>
+        <Text onPress={navigateToUser} style={styles.userName}>
+          {post.user.username}
+        </Text>
         <Entypo
           name="dots-three-horizontal"
           size={16}
@@ -124,9 +139,11 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
         </Text>
 
         {/* COMMENTS */}
-        <Text style={styles.internal}>View all {post.nofComments}Comments</Text>
+        <Text onPress={navigateToComments} style={styles.internal}>
+          View all {post.nofComments} Comments
+        </Text>
         {post.comments.map(comment => (
-          <Comment key={comment.id} comment={comment} />
+          <Comment key={comment.id} comment={comment} includeDetails={false} />
         ))}
         {/* POSTED DATES */}
         <Text style={styles.internal}>{post.createdAt}</Text>

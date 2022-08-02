@@ -5,7 +5,6 @@ import Fonts from '../../theme/Fonts';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 80,
   },
   internal: {
     color: 'grey',
